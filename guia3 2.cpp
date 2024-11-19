@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <algorithm>
 using namespace std;
 
 // Definimos constantes
 const int MAX_PRODUCTOS = 5;
+const int MAX_CANTIDAD = 20;
 const string productos[MAX_PRODUCTOS][2] = {{"Pan", "1.50"},
     {"Leche", "2.00"}, 
     {"Huevos", "3.00"},
@@ -15,65 +17,94 @@ const string productos[MAX_PRODUCTOS][2] = {{"Pan", "1.50"},
 void productosDisponibles();
 float calcularTotalVentas(float precios[], int cantidades[], int cantidad);
 void realizarPago(float totalVentas, string nombres[], float precios[], int cantidades[], int cantidad);
+void mostrarInventario(int inv[]);
+
 int main() { 
     string nombres[MAX_PRODUCTOS];
     float precios[MAX_PRODUCTOS];
     int cantidades[MAX_PRODUCTOS] = {0};  // Inicializamos las cantidades a 0
-    int numProducto, cantidad, cont = 0;
+    int cantidadInv[MAX_PRODUCTOS];
+    fill(cantidadInv, cantidadInv + MAX_PRODUCTOS, MAX_CANTIDAD);
+    int numProducto, cantidad, cont = 0, menup;
     char seleccion;
 
     cout << "Bienvenido al sistema de ventas del supermercado\n";
 
-    cout << "Menu de opciones\n";
-    cout << "1 Inventario" << endl;
-    cout << "2 Comprar" << endl;
-    cout << "3 Salir" << endl;
+    do{
+        cout << "\nMenu de opciones\n";
+        cout << "1 Inventario" << endl;
+        cout << "2 Comprar" << endl;
+        cout << "3 Salir" << endl;
+        cin >> menup;
+        
+        switch(menup){
+            case 1:
+                mostrarInventario(cantidadInv);
+                break;
+            case 2:
+            {
+                do {
+                    seleccion = 's';
+                    productosDisponibles();
+                    cout << "Seleccione el número del producto que desea agregar: ";
+                    cin >> numProducto;
 
-    do {
-        productosDisponibles();
-        cout << "Seleccione el número del producto que desea agregar: ";
-        cin >> numProducto;
+                    if(numProducto == MAX_PRODUCTOS + 1) break;
 
-        if (numProducto < 1 || numProducto > MAX_PRODUCTOS) {
-            cout << "Número de producto no válido. Intente de nuevo.\n";
-            continue;  // Saltamos a la siguiente iteración si el número no es válido
+                    if (numProducto < 1 || numProducto > MAX_PRODUCTOS) {
+                        cout << "Número de producto no válido. Intente de nuevo.\n";
+                        continue;  // Saltamos a la siguiente iteración si el número no es válido
+                    }
+
+                    cout << "Ingrese la cantidad del producto: ";
+                    cin >> cantidad;
+
+                    if (cantidad <= 0  || cantidad > cantidadInv[numProducto-1]) {
+                        cout << "Cantidad no válida. Intente de nuevo.\n";
+                        continue;  // Saltamos si la cantidad no es válida
+                    }
+
+                    // Guardamos el producto seleccionado
+                    nombres[cont] = productos[numProducto - 1][0];
+                    precios[cont] = stof(productos[numProducto - 1][1]);
+                    cantidades[cont] = cantidad;
+                    cantidadInv[numProducto-1] = cantidadInv[numProducto-1] - cantidad;
+                    cont += 1;
+
+                    cout << "¿Desea agregar otro producto? (s/n): ";
+                    cin >> seleccion;
+
+                } while (seleccion == 's' && cont < MAX_PRODUCTOS);
+
+                // Calcular total de ventas
+                float totalVentas = calcularTotalVentas(precios, cantidades, cont); 
+
+                // Realizar el pago y mostrar el recibo final
+                realizarPago(totalVentas, nombres, precios, cantidades, cont);
+
+                cont = 0;
+            }
+            break;
+            case 3:
+                cout << "Muchas gracias por visitarnos, hasta la proxima!";
+            break;
+            default:
+                cout << "Opción no válida";
+            break;
         }
-
-        cout << "Ingrese la cantidad del producto: ";
-        cin >> cantidad;
-
-        if (cantidad <= 0) {
-            cout << "Cantidad no válida. Intente de nuevo.\n";
-            continue;  // Saltamos si la cantidad no es válida
-        }
-
-        // Guardamos el producto seleccionado
-        nombres[cont] = productos[numProducto - 1][0];
-        precios[cont] = stof(productos[numProducto - 1][1]);
-        cantidades[cont] = cantidad;
-        cont += 1;
-
-        cout << "¿Desea agregar otro producto? (s/n): ";
-        cin >> seleccion;
-
-    } while (seleccion == 's');
-
-    // Calcular total de ventas
-    float totalVentas = calcularTotalVentas(precios, cantidades, cont); 
-
-    // Realizar el pago y mostrar el recibo final
-    realizarPago(totalVentas, nombres, precios, cantidades, cont);
-
+    }while(menup != 3);
     return 0;
 }
 
 // Función que muestra los productos disponibles
 void productosDisponibles(){
     cout << "\nProductos disponibles:\n";
-    for(size_t i = 0; i < MAX_PRODUCTOS; i++){
+    size_t i;
+    for(i = 0; i < MAX_PRODUCTOS; i++){
         cout << i+1 << ". " << productos[i][0];
         cout << " ($" << productos[i][1] << ")\n";
     }
+    cout << i+1 <<". Salir\n";
 }
 
 // Función para calcular el total de ventas
@@ -139,78 +170,32 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
     }
 }
 
-// Función para ingresar los datos de los productos
-/*
-void ingresarProductos(string nombres[], float precios[], int cantidades[], int &numProductos) {
-    for (int i = 0; i <= numProductos; ++i) {  
-        cout << "Ingrese el nombre del producto " << i + 1 << ": ";
-        cin >> nombres[i];
-        cout << "Ingrese el precio unitario de " << nombres[i] << ": ";
-        cin >> precios[i];  
+void mostrarInventario(int inv[]){
+    char opc;
+    for(int i = 0; i < MAX_PRODUCTOS; i++){
+        cout << i+1 << ". " << productos[i][0];
+        cout << " ($" << productos[i][1] << ") ";
+        cout << "Cantidad: " << inv[i] << endl;
 
-        // Validación de precio
-        while (precios[i] <= 0) { 
-            cout << "Precio no válido. Ingrese un valor positivo: ";
-            cin >> precios[i];
-        }
-
-        cout << "Ingrese la cantidad vendida de " << nombres[i] << ": ";
-        cin >> cantidades[i];  
-
-        // Validación de cantidad
-        while (cantidades[i] < 0) {
-            cout << "Cantidad no válida. Ingrese un valor positivo: ";
-            cin >> cantidades[i];
+        if(inv[i] <= 5){
+            cout << "No cuenta con suficientes artículos" << endl;
+            do{
+                cout << "Deseas rellenar? [s/n]\n";
+                cin >> opc;
+                switch(opc){
+                    case 's':
+                        inv[i] = MAX_CANTIDAD;
+                        i = -1;
+                        break;
+                    case 'n':
+                        cout << "No se rellenaron los artículos" << endl;
+                        break;
+                    default:
+                        cout << "Opcion no valida\n";
+                        break;
+                }
+            }while(opc != 's' && opc != 'n');
+            
         }
     }
 }
-*/
-
-// Función para obtener el índice del producto más vendido
-/*
-int obtenerProductoMasVendido(int cantidades[], int cantidad) {
-    int indiceMasVendido = 0;
-    for (int i = 1; i <= cantidad; ++i) {  
-        if (cantidades[i] > cantidades[indiceMasVendido]) {
-            indiceMasVendido = i;
-        }
-    }
-    return indiceMasVendido;
-}
-*/
-
-// Función para obtener el índice del producto más caro
-/*
-int obtenerProductoMasCaro(float precios[], int cantidad) {
-    int indiceMasCaro = 0;
-    for (int i = 1; i < cantidad; i++) { 
-        if (precios[i] > precios[indiceMasCaro]) {
-            indiceMasCaro = i;
-        }
-    }
-    return indiceMasCaro;
-}
-*/
-
-// Función para mostrar el resumen de ventas
-/*
-void mostrarResumenVentas(string nombres[], float precios[], int cantidades[], int cantidad, float totalVentas) {
-    cout << "\nResumen de Ventas:\n";
-    cout << "Total de ventas: $" << totalVentas << endl; 
-
-    int indiceMasVendido = obtenerProductoMasVendido(cantidades, cantidad);
-    cout << "Producto más vendido: " << nombres[indiceMasVendido]  
-         << " (Cantidad vendida: " << cantidades[indiceMasVendido] << ")" << endl;
-
-    int indiceMasCaro = obtenerProductoMasCaro(precios, cantidad);
-    cout << "Producto más caro: " << nombres[indiceMasCaro]
-         << " (Precio: $" << precios[indiceMasCaro] << ")" << endl; 
-
-    cout << "\nDetalles de cada producto vendido:\n";
-    for (int i = 0; i < cantidad; i++) {  
-        cout << nombres[i] << " - Precio: $" << precios[i]
-             << ", Cantidad vendida: " << cantidades[i]
-             << ", Total: $" << precios[i] * cantidades[i] << endl;
-    }
-}
-*/
