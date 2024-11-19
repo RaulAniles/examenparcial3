@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include <algorithm>
+#include <fstream>
 using namespace std;
 
 // Definimos constantes
@@ -123,6 +124,12 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
     float iva = 0.16;
     cout << "\nSeleccione el método de pago (t para tarjeta / e para efectivo): ";
     cin >> metodoPago;
+
+    ofstream archivo("recibos.txt", ios::app);
+    if (!archivo) {
+        cout << "Error al abrir el archivo de recibos.\n";
+        return;
+    }
     do{
         switch(metodoPago){
             case 't':{
@@ -132,13 +139,19 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
                 tm *ltm = localtime(&now);
 
                 cout << "\n--- Recibo Final ---\n";
+                archivo << "\n--- Recibo Final ---\n";
                 for (int i = 0; i < cantidad; i++) {
                     cout << nombres[i] << " x" << cantidades[i] << " - $"
                         << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
+                    archivo << nombres[i] << " x" << cantidades[i] << " - $"
+                            << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
                 }
                 cout << "Subtotal: $" << fixed << setprecision(2) << totalVentas << endl;
                 cout << "IVA (16%): $" << fixed << setprecision(2) << totalVentas * iva << endl;
                 cout << "TOTAL: $" << fixed << setprecision(2) << totalVentas * (1+iva) << endl << endl;
+                archivo << "Subtotal: $" << fixed << setprecision(2) << totalVentas << endl;
+                archivo << "IVA (16%): $" << fixed << setprecision(2) << totalVentas * iva << endl;
+                archivo << "TOTAL: $" << fixed << setprecision(2) << totalVentas * (1 + iva) << endl;
                 cout << "Deseas realizar el pago a meses sin intereses? [s/n] ";
                 cin >> sel;
                 do{
@@ -152,6 +165,14 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
                                 << ltm->tm_min << ":" 
                                 << ltm->tm_sec << endl;
                             cout << "------------------------\n";
+                            archivo << "Fecha y hora del pago: "
+                                    << 1900 + ltm->tm_year << "-" 
+                                    << 1 + ltm->tm_mon << "-" 
+                                    << ltm->tm_mday << " "
+                                    << ltm->tm_hour << ":" 
+                                    << ltm->tm_min << ":" 
+                                    << ltm->tm_sec << endl;
+                            archivo << "------------------------\n";
                         break;
                         case 's':
                             int mes;
@@ -162,6 +183,7 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
                             cin >> mes;
                             float pagar = ((totalVentas * (1+iva)) / (mes*3));
                             cout << "Pagaras " << pagar << " al mes" << endl;
+                            archivo << "Pagaras " << pagar << " al mes" << endl;
                     }
                 }while(sel != 's' && sel != 'n');
             }
@@ -181,6 +203,7 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
                 float cambio = efectivo - totalVentas * (1 + iva);
 
                 cout << "\n--- Recibo Final ---\n";
+                archivo << "\n--- Recibo Final ---\n";
                 for (int i = 0; i < cantidad; i++) {
                     cout << nombres[i] << " x" << cantidades[i] << " - $"
                         << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
@@ -191,6 +214,12 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
                 cout << "Efectivo recibido: $" << fixed << setprecision(2) << efectivo << endl;
                 cout << "Cambio: $" << fixed << setprecision(2) << cambio << endl;
                 cout << "------------------------\n";
+                archivo << "Subtotal: $" << fixed << setprecision(2) << totalVentas << endl;
+                archivo << "IVA (16%): $" << fixed << setprecision(2) << totalVentas * iva << endl;
+                archivo << "TOTAL: $" << fixed << setprecision(2) << totalVentas * (1+iva) << endl;
+                archivo << "Efectivo recibido: $" << fixed << setprecision(2) << efectivo << endl;
+                archivo << "Cambio: $" << fixed << setprecision(2) << cambio << endl;
+                archivo << "------------------------\n";
             }
             break;
             default:
