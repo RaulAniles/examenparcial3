@@ -1,3 +1,4 @@
+//Raúl Esteban Aniles Macias 222802
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -119,55 +120,84 @@ float calcularTotalVentas(float precios[], int cantidades[], int cantidad) {
 // Función para realizar el pago y mostrar el recibo final
 void realizarPago(float totalVentas, string nombres[], float precios[], int cantidades[], int cantidad) {
     char metodoPago;
+    float iva = 0.16;
     cout << "\nSeleccione el método de pago (t para tarjeta / e para efectivo): ";
     cin >> metodoPago;
+    do{
+        switch(metodoPago){
+            case 't':{
+                // Pago con tarjeta: obtener fecha y hora actual
+                time_t now = time(0);
+                char sel;
+                tm *ltm = localtime(&now);
 
-    if (metodoPago == 't') {
-        // Pago con tarjeta: obtener fecha y hora actual
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-
-        cout << "\n--- Recibo Final ---\n";
-        for (int i = 0; i < cantidad; i++) {
-            cout << nombres[i] << " x" << cantidades[i] << " - $"
-                 << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
-        }
-        cout << "Total: $" << fixed << setprecision(2) << totalVentas << endl;
-        cout << "Fecha y hora del pago: " 
-             << 1900 + ltm->tm_year << "-" 
-             << 1 + ltm->tm_mon << "-" 
-             << ltm->tm_mday << " "
-             << ltm->tm_hour << ":" 
-             << ltm->tm_min << ":" 
-             << ltm->tm_sec << endl;
-        cout << "------------------------\n";
-    }
-    else if (metodoPago == 'e') {
-        // Pago en efectivo
-        float efectivo;
-        do {
-            cout << "Ingrese la cantidad en efectivo: ";
-            cin >> efectivo;
-            if (efectivo < totalVentas) {
-                cout << "Cantidad insuficiente. Faltan $" << fixed << setprecision(2) << (totalVentas - efectivo) << endl;
+                cout << "\n--- Recibo Final ---\n";
+                for (int i = 0; i < cantidad; i++) {
+                    cout << nombres[i] << " x" << cantidades[i] << " - $"
+                        << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
+                }
+                cout << "Subtotal: $" << fixed << setprecision(2) << totalVentas << endl;
+                cout << "IVA (16%): $" << fixed << setprecision(2) << totalVentas * iva << endl;
+                cout << "TOTAL: $" << fixed << setprecision(2) << totalVentas * (1+iva) << endl << endl;
+                cout << "Deseas realizar el pago a meses sin intereses? [s/n] ";
+                cin >> sel;
+                do{
+                    switch(sel){
+                        case 'n':
+                            cout << "Fecha y hora del pago: " 
+                                << 1900 + ltm->tm_year << "-" 
+                                << 1 + ltm->tm_mon << "-" 
+                                << ltm->tm_mday << " "
+                                << ltm->tm_hour << ":" 
+                                << ltm->tm_min << ":" 
+                                << ltm->tm_sec << endl;
+                            cout << "------------------------\n";
+                        break;
+                        case 's':
+                            int mes;
+                            cout << "Selecciona los meses:\n";
+                            cout << "1 - 3 meses sin intereses\n";
+                            cout << "2 - 6 meses sin intereses\n";
+                            cout << "3 - 9 meses sin intereses\n";
+                            cin >> mes;
+                            float pagar = ((totalVentas * (1+iva)) / (mes*3));
+                            cout << "Pagaras " << pagar << " al mes" << endl;
+                    }
+                }while(sel != 's' && sel != 'n');
             }
-        } while (efectivo < totalVentas);
+            break;
+            case 'e': {
+                // Pago en efectivo
+                float efectivo;
+                cout << "TOTAL: $" << fixed << setprecision(2) << totalVentas * (1+iva) << endl;
+                do {
+                    cout << "Ingrese la cantidad en efectivo: ";
+                    cin >> efectivo;
+                    if (efectivo < totalVentas) {
+                        cout << "Cantidad insuficiente. Faltan $" << fixed << setprecision(2) << (totalVentas - efectivo) << endl;
+                    }
+                } while (efectivo < totalVentas);
 
-        float cambio = efectivo - totalVentas;
+                float cambio = efectivo - totalVentas * (1 + iva);
 
-        cout << "\n--- Recibo Final ---\n";
-        for (int i = 0; i < cantidad; i++) {
-            cout << nombres[i] << " x" << cantidades[i] << " - $"
-                 << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
+                cout << "\n--- Recibo Final ---\n";
+                for (int i = 0; i < cantidad; i++) {
+                    cout << nombres[i] << " x" << cantidades[i] << " - $"
+                        << fixed << setprecision(2) << precios[i] * cantidades[i] << endl;
+                }
+                cout << "Subtotal: $" << fixed << setprecision(2) << totalVentas << endl;
+                cout << "IVA (16%): $" << fixed << setprecision(2) << totalVentas * iva << endl;
+                cout << "TOTAL: $" << fixed << setprecision(2) << totalVentas * (1+iva) << endl;
+                cout << "Efectivo recibido: $" << fixed << setprecision(2) << efectivo << endl;
+                cout << "Cambio: $" << fixed << setprecision(2) << cambio << endl;
+                cout << "------------------------\n";
+            }
+            break;
+            default:
+                cout << "Método de pago no válido.\n";
+            break;
         }
-        cout << "Total: $" << fixed << setprecision(2) << totalVentas << endl;
-        cout << "Efectivo recibido: $" << fixed << setprecision(2) << efectivo << endl;
-        cout << "Cambio: $" << fixed << setprecision(2) << cambio << endl;
-        cout << "------------------------\n";
-    }
-    else {
-        cout << "Método de pago no válido.\n";
-    }
+    }while(metodoPago != 't' && metodoPago != 'e');
 }
 
 void mostrarInventario(int inv[]){
