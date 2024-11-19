@@ -22,3 +22,43 @@ Subtotal: $4.75
 IVA (16%): $0.76
 TOTAL: $5.51
 Pagaras 0.92 al mes
+
+--- Recibo Final ---
+Subtotal: $1.50
+IVA (16%): $0.24
+TOTAL: $1.74
+Efectivo recibido: $3.00
+Cambio: $1.26
+------------------------
+
+--- Recibo Final ---
+Subtotal: $1.00
+IVA (16%): $0.16
+TOTAL: $1.16
+Efectivo recibido: $4.00
+Cambio: $2.84
+------------------------
+
+--- Recibo Final ---
+Subtotal: $0.00
+IVA (16%): $0.00
+TOTAL: $0.00
+Efectivo recibido: $4.00
+Cambio: $4.00
+------------------------
+
+--- Recibo Final ---
+Subtotal: $40.00
+IVA (16%): $6.40
+TOTAL: $46.40
+Efectivo recibido: $50.00
+Cambio: $3.60
+------------------------
+
+--- Recibo Final ---
+Subtotal: $40.00
+IVA (16%): $6.40
+TOTAL: $46.40
+Efectivo recibido: $50.00
+Cambio: $3.60
+------------------------
