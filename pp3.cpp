@@ -10,6 +10,7 @@ int main() {
     float precios[MAX_PRODUCTOS];
     int cantidades[MAX_PRODUCTOS] = {0};  // Inicializamos las cantidades a 0
     int cantidadInv[MAX_PRODUCTOS];
+    //Utilizo la función fill() para rellenar los valores del inventario a su máxima cantidad
     fill(cantidadInv, cantidadInv + MAX_PRODUCTOS, MAX_CANTIDAD);
     int numProducto, cantidad, cont = 0, menup;
     char seleccion;
@@ -45,13 +46,20 @@ int main() {
                     cout << "Ingrese la cantidad del producto: ";
                     cin >> cantidad;
 
-                    if (cantidad <= 0  || cantidad > cantidadInv[numProducto-1]) {
+                    if (cantidad <= 0) {
                         cout << "Cantidad no válida. Intente de nuevo.\n";
                         continue;  // Saltamos si la cantidad no es válida
                     }
 
+                    if (cantidad > cantidadInv[numProducto-1]){
+                        cout << "No hay stock suficiente.\n";
+                        continue;
+                    }
+
                     // Guardamos el producto seleccionado
                     nombres[cont] = productos[numProducto - 1][0];
+                    /* En esta parte utilizo la función stof() que sirve para  
+                    convertir los datos string a float */
                     precios[cont] = stof(productos[numProducto - 1][1]);
                     cantidades[cont] = cantidad;
                     cantidadInv[numProducto-1] = cantidadInv[numProducto-1] - cantidad;

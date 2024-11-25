@@ -5,7 +5,11 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+/* Se incluye iomanip para utilizar la función setprecision()
+que redonea los decimales a la cantidad que se manda como argumento */
 #include <algorithm>
+/* Se incluye algorithm para utilizar la función fill() para 
+rellenar los valores del inventario a su máxima cantidad */
 #include <string>
 using namespace std;
 
@@ -118,9 +122,9 @@ void realizarPago(float totalVentas, string nombres[], float precios[], int cant
                     cout << "Ingrese la cantidad en efectivo: ";
                     cin >> efectivo;
                     if (efectivo < totalVentas) {
-                        cout << "Cantidad insuficiente. Faltan $" << fixed << setprecision(2) << (totalVentas - efectivo) << endl;
+                        cout << "Cantidad insuficiente. Faltan $" << fixed << setprecision(2) << (totalVentas * (1+iva) - efectivo) << endl;
                     }
-                } while (efectivo < totalVentas);
+                } while (efectivo < totalVentas * (1+iva));
 
                 float cambio = efectivo - totalVentas * (1 + iva);
 

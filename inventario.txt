@@ -1,0 +1,42 @@
+-----------------------------
+1. Pan ($1.50) Cantidad: 20
+2. Leche ($2.00) Cantidad: 20
+3. Huevos ($3.00) Cantidad: 20
+4. Fruta ($0.75) Cantidad: 20
+5. Verdura ($0.50) Cantidad: 20
+-----------------------------
+-----------------------------
+1. Pan ($1.50) Cantidad: 20
+2. Leche ($2.00) Cantidad: 20
+3. Huevos ($3.00) Cantidad: 20
+4. Fruta ($0.75) Cantidad: 20
+5. Verdura ($0.50) Cantidad: 20
+-----------------------------
+-----------------------------
+1. Pan ($1.50) Cantidad: 4
+
+Se rellenó el inventario para Pan
+1. Pan ($1.50) Cantidad: 20
+2. Leche ($2.00) Cantidad: 20
+3. Huevos ($3.00) Cantidad: 20
+4. Fruta ($0.75) Cantidad: 20
+5. Verdura ($0.50) Cantidad: 20
+-----------------------------
+-----------------------------
+1. Pan ($1.50) Cantidad: 4
+2. Leche ($2.00) Cantidad: 4
+
+Se rellenó el inventario para Leche
+1. Pan ($1.50) Cantidad: 4
+2. Leche ($2.00) Cantidad: 20
+3. Huevos ($3.00) Cantidad: 20
+4. Fruta ($0.75) Cantidad: 20
+5. Verdura ($0.50) Cantidad: 20
+-----------------------------
+-----------------------------
+1. Pan ($1.50) Cantidad: 10
+2. Leche ($2.00) Cantidad: 20
+3. Huevos ($3.00) Cantidad: 20
+4. Fruta ($0.75) Cantidad: 20
+5. Verdura ($0.50) Cantidad: 20
+-----------------------------

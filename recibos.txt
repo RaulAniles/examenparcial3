@@ -62,3 +62,130 @@ TOTAL: $46.40
 Efectivo recibido: $50.00
 Cambio: $3.60
 ------------------------
+
+--- Recibo Final ---
+Pan x1 - $1.50
+Subtotal: $1.50
+IVA (16%): $0.24
+TOTAL: $1.74
+Fecha y hora del pago: 2024-11-23 22:35:1
+------------------------
+
+--- Recibo Final ---
+Pan x19 - $28.50
+Subtotal: $28.50
+IVA (16%): $4.56
+TOTAL: $33.06
+Fecha y hora del pago: 2024-11-23 22:35:12
+------------------------
+
+--- Recibo Final ---
+Pan x20 - $30.00
+Subtotal: $30.00
+IVA (16%): $4.80
+TOTAL: $34.80
+
+--- Recibo Final ---
+Pan x20 - $30.00
+Subtotal: $30.00
+IVA (16%): $4.80
+TOTAL: $34.80
+Fecha y hora del pago: 2024-11-23 22:43:55
+------------------------
+
+--- Recibo Final ---
+Leche x5 - $10.00
+Subtotal: $10.00
+IVA (16%): $1.60
+TOTAL: $11.60
+Fecha y hora del pago: 2024-11-23 22:44:14
+------------------------
+
+--- Recibo Final ---
+Subtotal: $0.00
+IVA (16%): $0.00
+TOTAL: $0.00
+Fecha y hora del pago: 2024-11-23 22:44:49
+------------------------
+
+--- Recibo Final ---
+Huevos x3 - $9.00
+Subtotal: $9.00
+IVA (16%): $1.44
+TOTAL: $10.44
+Fecha y hora del pago: 2024-11-24 16:35:27
+------------------------
+
+--- Recibo Final ---
+Pan x18 - $27.00
+Leche x15 - $30.00
+Subtotal: $57.00
+IVA (16%): $9.12
+TOTAL: $66.12
+Pagaras 11.02 al mes
+------------------------
+
+--- Recibo Final ---
+Subtotal: $58.50
+IVA (16%): $9.36
+TOTAL: $67.86
+Efectivo recibido: $58.80
+Cambio: $-9.06
+------------------------
+
+--- Recibo Final ---
+Subtotal: $30.00
+IVA (16%): $4.80
+TOTAL: $34.80
+Efectivo recibido: $40.00
+Cambio: $5.20
+------------------------
+
+--- Recibo Final ---
+Subtotal: $1.50
+IVA (16%): $0.24
+TOTAL: $1.74
+Efectivo recibido: $2.00
+Cambio: $0.26
+------------------------
+
+--- Recibo Final ---
+Pan x15 - $22.50
+Leche x16 - $32.00
+Subtotal: $54.50
+IVA (16%): $8.72
+TOTAL: $63.22
+Fecha y hora del pago: 2024-11-24 17:10:19
+------------------------
+
+--- Recibo Final ---
+Pan x16 - $24.00
+Subtotal: $24.00
+IVA (16%): $3.84
+TOTAL: $27.84
+Fecha y hora del pago: 2024-11-24 17:12:8
+------------------------
+
+--- Recibo Final ---
+Subtotal: $56.00
+IVA (16%): $8.96
+TOTAL: $64.96
+Efectivo recibido: $100.00
+Cambio: $35.04
+------------------------
+
+--- Recibo Final ---
+Subtotal: $15.00
+IVA (16%): $2.40
+TOTAL: $17.40
+Efectivo recibido: $100.00
+Cambio: $82.60
+------------------------
+
+--- Recibo Final ---
+Subtotal: $0.00
+IVA (16%): $0.00
+TOTAL: $0.00
+Efectivo recibido: $100.00
+Cambio: $100.00
+------------------------
